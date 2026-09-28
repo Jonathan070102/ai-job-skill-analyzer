@@ -2,6 +2,11 @@
 
 import { ChangeEvent, FormEvent, useState } from "react";
 
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://localhost:8000";
+
+
 /* =========================================================
    TYPES
 ========================================================= */
@@ -247,7 +252,7 @@ export default function Home() {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:8000/analyze",
+        `${API_URL}/analyze`,
         {
           method: "POST",
           body: formData,
@@ -398,7 +403,7 @@ export default function Home() {
 
         const response =
           await fetch(
-            "http://localhost:8000/analyze-multiple-jobs",
+            `${API_URL}/analyze-multiple-jobs`,
             {
               method: "POST",
               body: formData,

@@ -20,6 +20,8 @@ from matching.common_gap_analyzer import analyze_common_skill_gaps
 
 from roadmap.roadmap_generator import generate_learning_roadmap
 
+import os
+
 app = FastAPI(
     title="AI Job Skill-Gap Analyzer API",
     version="0.1.0",
@@ -27,9 +29,18 @@ app = FastAPI(
 )
 
 # Allow the Next.js frontend to communicate with this backend.
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv(
+        "ALLOWED_ORIGINS",
+        "http://localhost:3000"
+    ).split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
